@@ -3,6 +3,9 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const { connect } = require("mongoose");
 const authenticateRouter = require("./routes/authenticate");
+const productRouter = require("./routes/product");
+const tokenValidatorMiddleware = require("./middleware/tokenValidatorMiddleware");
+const customLoggerMiddleware = require("./middleware/customLoggerMiddleware");
 
 const app = express();
 dotenv.config();
@@ -22,6 +25,7 @@ connect(
 app.use(express.json());
 app.use(cors());
 app.use("/auth", authenticateRouter);
+app.use("/products", tokenValidatorMiddleware, productRouter);
 
 app.listen(process.env.PORT, (err) => {
   if (err) console.log(err);
