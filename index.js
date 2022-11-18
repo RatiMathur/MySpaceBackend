@@ -17,13 +17,13 @@ connect(
     if (err) {
       console.log(err);
     }
-
     console.log("Database connection established");
   }
 );
 
 app.use(express.json());
 app.use(cors());
+app.use(customLoggerMiddleware);
 app.use("/auth", authenticateRouter);
 app.use("/products", tokenValidatorMiddleware, productRouter);
 

@@ -1,4 +1,3 @@
-//Create API
 const authenticateRouter = require("express").Router();
 const User = require("../models/user");
 const { getHashedPassword, generateToken } = require("../utilities");
@@ -18,7 +17,7 @@ authenticateRouter.post("/signup", async (req, res) => {
     const token = generateToken(userEntity);
     res.json({ token });
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(err.message);
   }
 });
 

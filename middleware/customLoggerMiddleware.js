@@ -6,7 +6,7 @@ const customLoggerMiddleware = (req, res, next) => {
   }-${currentDate.getDate()} ${currentDate.getTime()}`;
   const method = req.method;
   const url = req.url;
-  const statusCode = req.statusCode;
+  const statusCode = res.statusCode;
 
   let text = `[${dateString} ${method} ${url} ${statusCode}]`;
   console.log(text);
