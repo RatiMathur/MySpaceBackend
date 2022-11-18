@@ -4,6 +4,7 @@ const cors = require("cors");
 const { connect } = require("mongoose");
 const authenticateRouter = require("./routes/authenticate");
 const productRouter = require("./routes/product");
+const bookRouter = require("./routes/book");
 const tokenValidatorMiddleware = require("./middleware/tokenValidatorMiddleware");
 const customLoggerMiddleware = require("./middleware/customLoggerMiddleware");
 
@@ -26,6 +27,7 @@ app.use(cors());
 app.use(customLoggerMiddleware);
 app.use("/auth", authenticateRouter);
 app.use("/products", tokenValidatorMiddleware, productRouter);
+app.use("/books", tokenValidatorMiddleware, bookRouter);
 
 app.listen(process.env.PORT, (err) => {
   if (err) console.log(err);

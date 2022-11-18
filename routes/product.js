@@ -61,7 +61,7 @@ productRouter.delete("/:id", async (req, res) => {
 
   try {
     const productEntity = await Product.findById(id);
-    await productEntity.deleteOne(id);
+    await productEntity.deleteOne();
     res.json(productEntity);
   } catch (error) {
     res.status(500).send(error.message);
