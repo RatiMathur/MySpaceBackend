@@ -3,12 +3,13 @@ const customLoggerMiddleware = (req, res, next) => {
   const currentDate = new Date();
   const dateString = `${currentDate.getFullYear()}-${
     currentDate.getMonth() + 1
-  }-${currentDate.getDate()} ${currentDate.getTime()}`;
+  }-${currentDate.getDate()} ${currentDate.getHours()}:${currentDate.getMinutes()}`;
+
   const method = req.method;
   const url = req.url;
   const statusCode = res.statusCode;
 
-  let text = `[${dateString} ${method} ${url} ${statusCode}]`;
+  let text = `[${dateString}] ${method} ${url} ${statusCode}`;
   console.log(text);
   next();
 };

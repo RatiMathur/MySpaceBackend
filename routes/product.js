@@ -1,7 +1,7 @@
 const productRouter = require("express").Router();
 const Product = require("../models/product");
 
-//Get all Products
+// Get All Products
 productRouter.get("/", async (req, res) => {
   try {
     const products = await Product.find();
@@ -11,9 +11,10 @@ productRouter.get("/", async (req, res) => {
   }
 });
 
-//Get specific product
+// Get specific Product
 productRouter.get("/:id", async (req, res) => {
   const id = req.params.id;
+
   try {
     const product = await Product.findById(id);
     res.json(product);
@@ -22,10 +23,16 @@ productRouter.get("/:id", async (req, res) => {
   }
 });
 
-//Create new Product
+// Create a new Product
 productRouter.post("/", async (req, res) => {
   const { name, description, price, quantity } = req.body;
-  const productEntity = new Product({ name, description, price, quantity });
+
+  const productEntity = new Product({
+    name,
+    description,
+    price,
+    quantity,
+  });
 
   try {
     await productEntity.save();
@@ -35,7 +42,7 @@ productRouter.post("/", async (req, res) => {
   }
 });
 
-//Update a Product
+// Update a Product
 productRouter.put("/:id", async (req, res) => {
   const id = req.params.id;
   const { name, description, price, quantity } = req.body;
@@ -54,10 +61,9 @@ productRouter.put("/:id", async (req, res) => {
   }
 });
 
-//Delete a Product
+// Delete a Product
 productRouter.delete("/:id", async (req, res) => {
   const id = req.params.id;
-  const { name, description, price, quantity } = req.body;
 
   try {
     const productEntity = await Product.findById(id);
