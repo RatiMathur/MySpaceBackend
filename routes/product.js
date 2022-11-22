@@ -1,5 +1,11 @@
 const productRouter = require("express").Router();
 const Product = require("../models/product");
+const {
+  validateName,
+  validateDescription,
+  validatePrice,
+  validateQuantity,
+} = require("../Validators/validateproduct");
 
 // Get All Products
 productRouter.get("/", async (req, res) => {
@@ -34,6 +40,26 @@ productRouter.post("/", async (req, res) => {
     quantity,
   });
 
+  const validName = validateName(name);
+  if (name.isInvalid) {
+    return res.status(400).json(validName);
+  }
+
+  const validDescription = validateDescription(description);
+  if (description.isInvalid) {
+    return res.status(400).json(validDescription);
+  }
+
+  const validPrice = validatePrice(price);
+  if (price.isInvalid) {
+    return res.status(400).json(validPrice);
+  }
+
+  const validQuantity = validateQuantity(quantity);
+  if (quantity.isInvalid) {
+    return res.status(400).json(validQuantity);
+  }
+
   try {
     await productEntity.save();
     res.json(productEntity);
@@ -46,6 +72,26 @@ productRouter.post("/", async (req, res) => {
 productRouter.put("/:id", async (req, res) => {
   const id = req.params.id;
   const { name, description, price, quantity } = req.body;
+
+  const validName = validateName(name);
+  if (name.isInvalid) {
+    return res.status(400).json(validName);
+  }
+
+  const validDescription = validateDescription(description);
+  if (description.isInvalid) {
+    return res.status(400).json(validDescription);
+  }
+
+  const validPrice = validatePrice(price);
+  if (price.isInvalid) {
+    return res.status(400).json(validPrice);
+  }
+
+  const validQuantity = validateQuantity(quantity);
+  if (quantity.isInvalid) {
+    return res.status(400).json(validQuantity);
+  }
 
   try {
     const productEntity = await Product.findById(id);
